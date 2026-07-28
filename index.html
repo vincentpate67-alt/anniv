@@ -11,6 +11,7 @@
     <div class="stars"></div>
     <div class="glow"></div>
     <div id="backgroundSprites" class="background-sprites" aria-hidden="true"></div>
+  <button id="btnDownload" class="button secondary-button fixed-download hidden" aria-hidden="true">Télécharger</button>
     <main class="hero">
       <div class="hero__content">
         <p class="subtitle">Découvres ton skibidi cadeau</p>
@@ -29,8 +30,25 @@
       </div>
     </main>
   </div>
+
+  <div id="purchaseModal" class="modal" aria-hidden="true">
+    <div class="modal-panel">
+      <button id="modalClose" class="modal-close" aria-label="Fermer">×</button>
+      <h2>Menu de paiement</h2>
+      <p id="downloadInfo">Tu es sur le point de télécharger la musique en cours de lecture.</p>
+      <label class="modal-label" for="cardNumber">Numéro de carte</label>
+      <input id="cardNumber" type="text" class="modal-input" placeholder="1234 5678 9012 3456" />
+      <label class="modal-label" for="expiryDate">Date d'expiration</label>
+      <input id="expiryDate" type="text" class="modal-input" placeholder="MM/AA" />
+      <label class="modal-label" for="cvc">CVC</label>
+      <input id="cvc" type="text" class="modal-input" placeholder="123" />
+      <button id="purchaseButton" class="button">Acheter</button>
+      <div id="purchaseStatus" class="purchase-status" aria-live="polite"></div>
+      <a id="downloadLink" class="button download-link hidden" download>Télécharger maintenant</a>
+    </div>
+  </div>
   <audio id="audioAntoine" src="FF.mp3" preload="auto"></audio>
-  <audio id="audioArthur" src="test.mp3" preload="auto"></audio>
+  <audio id="audioArthur" src="SILV3R.mp3" preload="auto"></audio>
   <script src="script.js"></script>
 </body>
 </html>
