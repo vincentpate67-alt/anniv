@@ -1,5 +1,6 @@
 const btnAntoine = document.getElementById('btnAntoine');
 const btnArthur = document.getElementById('btnArthur');
+const btnDownload = document.getElementById('btnDownload');
 const audioAntoine = document.getElementById('audioAntoine');
 const audioArthur = document.getElementById('audioArthur');
 const buttons = document.querySelectorAll('.button');
@@ -9,6 +10,15 @@ const volumeLabel = document.getElementById('volumeLabel');
 const statusText = document.getElementById('audioStatus');
 const heroContent = document.querySelector('.hero__content');
 let backgroundSprites = document.getElementById('backgroundSprites');
+const purchaseModal = document.getElementById('purchaseModal');
+const modalClose = document.getElementById('modalClose');
+const cardNumber = document.getElementById('cardNumber');
+const expiryDate = document.getElementById('expiryDate');
+const cvc = document.getElementById('cvc');
+const purchaseButton = document.getElementById('purchaseButton');
+const purchaseStatus = document.getElementById('purchaseStatus');
+const downloadLink = document.getElementById('downloadLink');
+const downloadInfo = document.getElementById('downloadInfo');
 const waveCanvas = document.getElementById('waveCanvas');
 const canvasCtx = waveCanvas.getContext('2d');
 
@@ -24,6 +34,7 @@ let audioContext = null;
 let analyser = null;
 const sourceNodes = new WeakMap();
 let currentAudio = null;
+let currentDownloadFile = null;
 let dataArray = null;
 let animationId = null;
 let useAnalyser = false;
@@ -210,6 +221,16 @@ function playAudio(audioElement) {
   });
 
   updateAudioControlsVisibility(true);
+  btnDownload.classList.remove('hidden');
+  btnDownload.setAttribute('aria-hidden', 'false');
+  if (audioElement === audioAntoine) {
+    currentDownloadFile = 'FF.mp3';
+  } else {
+    currentDownloadFile = 'SILV3R.mp3';
+  }
+  if (downloadInfo) {
+    downloadInfo.textContent = `Tu es sur le point de télécharger ${currentDownloadFile}.`;
+  }
   if (audioContext && audioContext.state === 'suspended') {
     audioContext.resume();
   }
@@ -231,13 +252,44 @@ btnArthur.addEventListener('click', () => {
   startSpriteStream('arthur');
 });
 
+btnDownload.addEventListener('click', () => {
+  if (!currentDownloadFile) return;
+  purchaseModal.classList.add('open');
+  purchaseModal.setAttribute('aria-hidden', 'false');
+  downloadInfo.textContent = `Tu es sur le point de télécharger ${currentDownloadFile}.`;
+});
+
+modalClose.addEventListener('click', () => {
+  purchaseModal.classList.remove('open');
+  purchaseModal.setAttribute('aria-hidden', 'true');
+});
+
+purchaseButton.addEventListener('click', () => {
+  if (!currentDownloadFile) return;
+  purchaseStatus.textContent = 'Traitement du paiement… ça va marcher même sans rien entrer.';
+  setTimeout(() => {
+    const filename = currentDownloadFile;
+    const fileUrl = filename;
+    downloadLink.href = fileUrl;
+    downloadLink.textContent = `Télécharger ${filename}`;
+    downloadLink.classList.remove('hidden');
+    purchaseStatus.textContent = 'Paiement accepté ! Clique sur le lien pour télécharger.';
+  }, 1200);
+});
+
 audioAntoine.addEventListener('ended', () => {
   updateAudioControlsVisibility(false);
   stopSpriteStream();
+  btnDownload.classList.add('hidden');
+  btnDownload.setAttribute('aria-hidden', 'true');
+  currentDownloadFile = null;
 });
 audioArthur.addEventListener('ended', () => {
   updateAudioControlsVisibility(false);
   stopSpriteStream();
+  btnDownload.classList.add('hidden');
+  btnDownload.setAttribute('aria-hidden', 'true');
+  currentDownloadFile = null;
 });
 
 audioAntoine.addEventListener('error', () => showStatus('Fichier FF.mp3 introuvable ou bloqué.'));
