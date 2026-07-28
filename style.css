@@ -281,6 +281,117 @@ body::before {
   opacity: 1;
 }
 
+.secondary-button {
+  background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.08));
+  border-color: rgba(204, 153, 255, 0.28);
+}
+
+.fixed-download {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 15;
+  min-width: 180px;
+  padding: 1rem 1.4rem;
+  border-radius: 999px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 640px) {
+  .fixed-download {
+    right: 14px;
+    bottom: 14px;
+    min-width: 150px;
+  }
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 9, 28, 0.9);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-panel {
+  width: min(520px, calc(100% - 2rem));
+  padding: 2rem;
+  background: rgba(14, 16, 42, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 28px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.32);
+  color: #f6f7ff;
+  display: grid;
+  gap: 1rem;
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 1.7rem;
+}
+
+.modal p {
+  margin: 0;
+  color: rgba(255,255,255,0.72);
+}
+
+.modal-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: rgba(255,255,255,0.74);
+  font-size: 0.95rem;
+}
+
+.modal-input,
+.modal-select {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(255,255,255,0.06);
+  color: #f5f5ff;
+  font-size: 0.95rem;
+}
+
+.modal-input::placeholder,
+.modal-select {
+  color: rgba(255,255,255,0.55);
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.75);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.purchase-status {
+  color: rgba(148, 200, 255, 0.96);
+  font-size: 0.95rem;
+  min-height: 1.2rem;
+}
+
+.download-link {
+  justify-self: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
 @keyframes drift {
   from { transform: translateY(0) translateX(0); }
   to { transform: translateY(-140px) translateX(120px); }
